@@ -1,0 +1,2 @@
+# exclude roles, as they are managed in separate repos
+/roles
