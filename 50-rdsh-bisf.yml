@@ -1,0 +1,40 @@
+---
+- hosts: windows-rdsh
+
+  vars_files:
+    - vars/generic.yml
+    - vars/bisf.yml
+
+  tasks:
+
+    - name: Create Temp Folder
+      win_file:
+        path: '{{ temp_working_dir }}'
+        state: directory
+
+    - name: Copy BIS-F Setup
+      win_copy:
+        src: '{{ remote_install_share }}\bis-f\setup-BIS-F-{{ bisf_version }}.exe'
+        dest: '{{ temp_working_dir }}\'
+        remote_src: yes
+      become: yes
+      become_method: runas
+      become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+      vars:
+        ansible_become_user: '{{ domain_admin_user }}'
+        ansible_become_pass: '{{ domain_admin_password }}'
+
+    - name: Install BIS-F
+      win_package:
+        path: '{{ temp_working_dir }}\bis-f\setup-BIS-F-{{ bisf_version }}.exe'
+        arguments:
+        - /INSTALL
+        - /QUIET
+        - /NORESTART
+        # fill product id
+        product_id: '0000000000000000000000000000000'
+        state: present
+      register: bisf_install
+
+    - debug:
+        var: bisf_install

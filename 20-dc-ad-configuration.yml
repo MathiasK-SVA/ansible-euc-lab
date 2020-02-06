@@ -1,0 +1,51 @@
+---
+- hosts: windows-dc
+
+  vars_files:
+    - vars/generic.yml
+    - vars/ad-defaults.yml
+    - vars/ad-ous.yml
+    - vars/ad-groups.yml
+    - vars/ad-users.yml
+
+  tasks:
+    - include_role:
+        name: ansible-role-win-domain-ou
+      vars:
+        domain_ous: '{{ active_directory_domain_ou_list }}'
+
+    - name: Create Active Directory Groups
+      win_domain_group:
+        state: "{{ item.value.ensure | default(active_directory_ensure) }}"
+        name: "{{ item.key }}"
+        description: "{{ item.value.description }}"
+        path: "{{ item.value.path + ',' + active_directory_group_base_ou }}"
+        scope: "{{ item.value.scope | default(active_directory_group_scope) }}"
+        attributes:
+          mail: "{{ item.value.mail | default(item.key | lower + '@' + active_directory_email_domain) }}"
+      with_dict: "{{ active_directory_groups | default({}) }}"
+
+    - debug: 
+        msg: "{{ active_directory_users }}"
+
+    - name: Create Active Directory Users
+      win_domain_user:
+        state: "{{ item.value.ensure | default(active_directory_ensure) }}"
+        name: "{{ item.key }}"
+        firstname: "{{ item.value.first_name }}"
+        surname: "{{ item.value.last_name }}"
+        password: "{{ item.value.password | default(active_directory_user_default_password) }}"
+        password_never_expires: "{{ item.value.password_never_expires_enabled | default(active_directory_user_password_never_expires_enabled) }}"
+        user_cannot_change_password: "{{ item.value.cannot_change_password_enabled | default(active_directory_user_cannot_change_password_enabled) }}"
+        account_locked: "{{ item.value.locked_enabled | default(active_directory_user_account_locked_enabled) }}"
+        path: "{{ item.value.path + ',' + active_directory_user_base_ou }}"
+        update_password: "{{ item.value.update_password | default(active_directory_user_update_password) }}"
+        email: "{{ item.value.email | default(item.value.first_name | lower + '.' + item.value.last_name | lower + '@' + active_directory_email_domain) }}"
+        upn: "{{ item.key + '@' + active_directory_dns_domain }}"
+        groups_action: "{{ item.value.groups_action | default(active_directory_user_group_action) }}"
+        attributes:
+          displayName: "{{ item.value.first_name | capitalize }} {{ item.value.last_name | capitalize }}"
+          description: "{{ item.value.description | default(omit) }}"
+        groups: "{{ item.value.groups | default(active_directory_default_group) | flatten }}"
+      with_dict:
+        - "{{ active_directory_users | default({}) }}"

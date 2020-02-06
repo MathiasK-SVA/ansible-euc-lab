@@ -1,0 +1,10 @@
+---
+bisf_version: '7.1912.1'
+bisf_download_url: 'https://github.com/EUCweb/BIS-F/releases/download/{{ bisf_version }}/setup-BIS-F-{{ bisf_version }}.exe'
+bisf_admx_url: https://raw.githubusercontent.com/EUCweb/BIS-F/7.1912.1/ADMX/BaseImageScriptFramework.admx
+bisf_adml_en_url: https://raw.githubusercontent.com/EUCweb/BIS-F/7.1912.1/ADMX/en-US/BaseImageScriptFramework.adml
+
+bisf_tool_ctxo_download_url: https://svatraining.blob.core.windows.net/resources/CitrixOptimizer.zip
+bisf_tool_vosot_download_url: https://download3.vmware.com/software/vmw-tools/osoptimization/VMwareOSOptimizationTool_b1140_15488330.zip
+bisf_tool_delprof2_download_url: https://helgeklein.com/downloads/DelProf2/current/Delprof2%201.6.0.zip
+bisf_tool_sdelete_download_url: https://download.sysinternals.com/files/SDelete.zip

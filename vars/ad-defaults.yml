@@ -1,0 +1,22 @@
+---
+### generic
+active_directory_ensure: present
+active_directory_dns_domain: 'svalab.local'
+active_directory_netbios_name: 'SVALAB'
+active_directory_email_domain: 'svalab.local'
+active_directory_base_ou: 'DC=svalab,DC=local'
+
+### users
+active_directory_users: {}
+active_directory_user_base_ou: 'OU=Users,OU=SVALAB,{{ active_directory_base_ou }}'
+active_directory_user_default_password: Passw0rd
+active_directory_user_update_password: 'on_create'
+active_directory_user_group_action: 'add'
+active_directory_user_password_never_expires_enabled: true
+active_directory_user_cannot_change_password_enabled: false
+active_directory_user_account_locked_enabled: false
+
+### groups
+active_directory_groups: {}
+active_directory_group_base_ou: 'OU=Groups,OU=SVALAB,{{ active_directory_base_ou }}'
+active_directory_group_scope: 'global'

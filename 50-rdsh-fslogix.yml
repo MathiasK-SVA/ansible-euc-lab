@@ -1,0 +1,68 @@
+---
+- hosts: windows-rdsh
+
+  vars_files:
+    - vars/generic.yml
+    - vars/fslogix.yml
+
+  tasks:
+
+    - name: Create Temp Folder
+      win_file:
+        path: '{{ temp_working_dir }}'
+        state: directory
+
+    - name: Copy FSLogix Apps
+      win_copy:
+        src: '{{ remote_install_share }}\fslogix\x64\Release\{{ fslogix_apps_install_file }}'
+        dest: '{{ temp_working_dir }}\'
+        remote_src: yes
+      become: yes
+      become_method: runas
+      become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+      vars:
+        ansible_become_user: '{{ domain_admin_user }}'
+        ansible_become_pass: '{{ domain_admin_password }}'
+
+    - name: Install FSLogix Apps
+      win_package:
+        path: '{{ temp_working_dir }}\{{ fslogix_apps_install_file }}'
+        arguments:
+        - /INSTALL
+        - /QUIET
+        - /NORESTART
+        product_id: '{{ fslogix_apps_product_id }}'
+        state: present
+      register: fslogix_apps_install
+
+    - debug:
+        var: fslogix_apps_install
+
+    - name: Copy FSLogix Apps  Rule Editor
+      win_copy:
+        src: '{{ remote_install_share }}\fslogix\x64\Release\{{ fslogix_apps_ruleeditor_file }}'
+        dest: '{{ temp_working_dir }}\'
+        remote_src: yes
+      become: yes
+      become_method: runas
+      become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+      vars:
+        ansible_become_user: '{{ domain_admin_user }}'
+        ansible_become_pass: '{{ domain_admin_password }}'
+
+    - name: Install FSLogix Apps Rule Editor
+      win_package:
+        path: '{{ temp_working_dir }}\{{ fslogix_apps_ruleeditor_file }}'
+        arguments:
+        - /INSTALL
+        - /QUIET
+        - /NORESTART
+        product_id: '{{ fslogix_apps_product_id }}'
+        state: present
+      register: fslogix_apps_ruleditor_install
+
+    - debug:
+        var: fslogix_apps_ruleditor_install
+
+    - name: reboot after FSLogix installation
+      win_reboot:

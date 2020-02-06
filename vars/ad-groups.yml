@@ -1,0 +1,20 @@
+---
+active_directory_groups:
+  # citrix
+  ctx-pd-rdsh-ws19:
+    description: 'Citrix Published Desktop RDSH Windows Server 2019'
+    path: 'OU=citrix'
+
+  ctx-pd-rdsh-w10evd:
+    description: 'Citrix Published Desktop RDSH Windows 10 EVD'
+    path: 'OU=citrix'
+
+  ctx-pd-vdi-w10pooled:
+    description: 'Citrix Published Desktop VDI Windows 10 Pooled'
+    path: 'OU=citrix'
+
+active_directory_default_groups:
+  citrix-user:
+    - ctx-pd-rdsh-ws19
+    - ctx-pd-rdsh-w10evd
+    - ctx-pd-vdi-w10pooled

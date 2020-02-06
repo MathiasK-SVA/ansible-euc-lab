@@ -1,0 +1,28 @@
+---
+- hosts: windows-dc
+
+  vars_files:
+    - vars/generic.yml
+    - vars/devicetrust.yml
+
+  tasks:
+    - name: installation source exists
+      win_stat:
+        path: '{{ resources_dir }}\devicetrust'
+      register: install_source_dir
+
+    - name: download latest deviceTRUST training sources
+      win_get_url:
+        url: '{{ devicetrust_training_download_url }}'
+        dest: '{{ temp_working_dir }}\dtca_training.zip'
+
+    - name: Create deviceTRUST Training Folder
+      win_file:
+        path: '{{ resources_dir }}\devicetrust\dtca_training'
+        state: directory
+
+    - name: Unzip deviceTRUST Training files
+      win_unzip:
+        src: C:\Windows\Temp\2019-04-05_dT_Certified_Architect_Training.zip
+        dest: '{{ resources_dir }}\devicetrust\dtca_training'
+        delete_archive: yes

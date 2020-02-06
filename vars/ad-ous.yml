@@ -1,0 +1,7 @@
+---
+active_directory_domain_ou_list:
+  - { name: 'SVALAB', path: '{{ active_directory_base_ou }}'}
+  - { name: 'Users', path: 'OU=SVALAB,{{ active_directory_base_ou }}'}
+  - { name: 'Groups', path: 'OU=SVALAB,{{ active_directory_base_ou }}'}
+  - { name: 'Citrix', path: 'OU=Groups,OU=SVALAB,{{ active_directory_base_ou }}'}
+  - { name: 'Service', path: 'OU=Users,OU=SVALAB,{{ active_directory_base_ou }}'}

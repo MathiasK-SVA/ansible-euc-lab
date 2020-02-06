@@ -1,0 +1,42 @@
+---
+- hosts: windows-dc
+
+  vars_files:
+    - vars/generic.yml
+    - vars/devicetrust.yml
+
+  tasks:
+    - name: installation source exists
+      win_stat:
+        path: '{{ resources_dir }}'
+      register: install_source_dir
+
+    - name: Create installation sources folder for deviceTRUST
+      win_file:
+        path: '{{ resources_dir }}\devicetrust'
+        state: directory
+      when: install_source_dir.stat.exists
+      register: install_source_dir_devicetrust
+
+    - name: download latest deviceTRUST install sources
+      win_get_url:
+        url: '{{ devicetrust_download_url }}'
+        dest: '{{ temp_working_dir }}\devicetrust.zip'
+
+    - name: Unzip deviceTRUST files
+      win_unzip:
+        src: '{{ temp_working_dir }}\devicetrust.zip'
+        dest: '{{ resources_dir }}\devicetrust\'
+        delete_archive: yes
+
+    - name: Install deviceTRUST Console
+      win_package:
+        path: '{{ resources_dir }}\devicetrust\\{{ devicetrust_console_install_file }}'
+        product_id: '{{ devicetrust_console_product_id }}'
+        #creates_path: C:\Program Files\deviceTRUST\Console\Bin
+        state: present
+      register: deviceTRUST_Console_install
+
+    - name: reboot if deviceTRUST Console requires it
+      win_reboot:
+      when: deviceTRUST_Console_install.reboot_required

@@ -1,0 +1,37 @@
+---
+- hosts: windows-client
+
+  vars_files:
+    - vars/generic.yml
+    - vars/devicetrust.yml
+
+  tasks:
+    - name: Create Temp Folder
+      win_file:
+        path: '{{ temp_working_dir }}'
+        state: directory
+
+    - name: Copy deviceTRUST Client
+      win_copy:
+        src: '{{ remote_install_share }}\devicetrust\{{ devicetrust_client_install_file }}'
+        dest: '{{ temp_working_dir }}\'
+        remote_src: yes
+      become: yes
+      become_method: runas
+      become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+      vars:
+        ansible_become_user: '{{ domain_admin_user }}'
+        ansible_become_pass: '{{ domain_admin_password }}'
+
+    - name: Install deviceTRUST Client
+      win_package:
+        path: '{{ temp_working_dir }}\{{ devicetrust_client_install_file }}'
+        product_id: '{{ devicetrust_client_product_id }}'
+        arguments: /INSTALL /QUIET /NORESTART
+        #creates_path: C:\Program Files\deviceTRUST\Client\Bin
+        state: present
+      register: deviceTRUST_Client_install
+
+    - name: reboot if deviceTRUST Client requires it
+      win_reboot:
+      when: deviceTRUST_Client_install.reboot_required

@@ -1,0 +1,8 @@
+---
+active_directory_users:
+  svc_domainjoin:
+    first_name: 'Service-User'
+    last_name: 'Domainjoin'
+    path: 'OU=service'
+    groups:
+      - 'Account Operators'

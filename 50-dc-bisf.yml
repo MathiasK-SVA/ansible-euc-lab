@@ -1,0 +1,110 @@
+---
+- hosts: windows-dc
+
+  vars_files:
+    - vars/generic.yml
+    - vars/bisf.yml
+
+  tasks:
+    - name: installation source exists
+      win_stat:
+        path: '{{ resources_dir }}'
+      register: install_source_dir
+
+    - name: Create installation sources folder for BIS-F
+      win_file:
+        path: '{{ resources_dir }}\bis-f'
+        state: directory
+      when: install_source_dir.stat.exists
+      register: install_source_dir_bisf
+
+    - name: download latest BIS-F install sources
+      win_get_url:
+        url: '{{ bisf_download_url }}'
+        dest: '{{ resources_dir }}\bis-f\setup-BIS-F-{{ bisf_version }}.exe'
+
+    - name: Fetch ADMX from GitHub to PolicyDefinitions
+      win_get_url:
+        url: '{{ bisf_admx_url }}'
+        dest: '{{ policy_definitions_dir }}\'
+
+    - name: PolicyDefinitions en-US exists
+      win_stat:
+        path: '{{ policy_definitions_dir }}\en-US'
+      register: policy_definitions_en
+
+    - name: Fetch ADML from GitHub to PolicyDefinitions en
+      win_get_url:
+        url: '{{ bisf_adml_en_url }}'
+        dest: '{{ policy_definitions_dir }}\en-US\'
+      when: policy_definitions_en.stat.exists
+      register: copy_adml_to_pd_en
+
+    - name: Create 3rd party tools folder for BIS-F
+      win_file:
+        path: '{{ resources_dir }}\bis-f\3rdparty'
+        state: directory
+
+    - name: download latest Citrix Optimizer install sources
+      win_get_url:
+        url: '{{ bisf_tool_ctxo_download_url }}'
+        dest: '{{ temp_working_dir }}\citrixoptimizer.zip'
+
+    - name: Create 3rd party tools folder for Citrix Optimizer
+      win_file:
+        path: '{{ resources_dir }}\bis-f\3rdparty\citrixoptimizer'
+        state: directory
+
+    - name: Unzip Citrix Optimizer files
+      win_unzip:
+        src: '{{ temp_working_dir }}\citrixoptimizer.zip'
+        dest: '{{ resources_dir }}\bis-f\3rdparty\citrixoptimizer\'
+        delete_archive: yes
+
+    - name: download latest VMware OS Optimization Tool install sources
+      win_get_url:
+        url: '{{ bisf_tool_vosot_download_url }}'
+        dest: '{{ temp_working_dir }}\vosot.zip'
+
+    - name: Create 3rd party tools folder for VMware OS Optimization Tool
+      win_file:
+        path: '{{ resources_dir }}\bis-f\3rdparty\vosot'
+        state: directory
+
+    - name: Unzip VMware OS Optimization Tool files
+      win_unzip:
+        src: '{{ temp_working_dir }}\vosot.zip'
+        dest: '{{ resources_dir }}\bis-f\3rdparty\vosot\'
+        delete_archive: yes
+
+    - name: download latest delprof2 install sources
+      win_get_url:
+        url: '{{ bisf_tool_delprof2_download_url }}'
+        dest: '{{ temp_working_dir }}\delprof2.zip'
+
+    - name: Create 3rd party tools folder for delprof2
+      win_file:
+        path: '{{ resources_dir }}\bis-f\3rdparty\delprof2'
+        state: directory
+
+    - name: Unzip delprof2 files
+      win_unzip:
+        src: '{{ temp_working_dir }}\delprof2.zip'
+        dest: '{{ resources_dir }}\bis-f\3rdparty\delprof2\'
+        delete_archive: yes
+
+    - name: download latest sdelete install sources
+      win_get_url:
+        url: '{{ bisf_tool_sdelete_download_url }}'
+        dest: '{{ temp_working_dir }}\sdelete.zip'
+
+    - name: Create 3rd party tools folder for sdelete
+      win_file:
+        path: '{{ resources_dir }}\bis-f\3rdparty\sdelete'
+        state: directory
+
+    - name: Unzip sdelete files
+      win_unzip:
+        src: '{{ temp_working_dir }}\sdelete.zip'
+        dest: '{{ resources_dir }}\bis-f\3rdparty\sdelete\'
+        delete_archive: yes

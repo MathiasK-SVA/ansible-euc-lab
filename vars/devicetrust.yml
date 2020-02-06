@@ -1,0 +1,16 @@
+---
+
+# 19.4.100
+devicetrust_policydefinitions_zip: dtpolicydefinitions-19.4.100.0.zip
+
+devicetrust_console_install_file: dtconsole-x64-release-19.4.100.0.msi
+devicetrust_console_product_id: {5D30AF6C-D51E-42F9-972C-A818E903AB35}
+
+devicetrust_host_install_file: dthost-x64-release-19.4.100.0.msi
+devicetrust_host_product_id: {F4AD693E-F735-4AB2-8C42-2678B85DD769}
+
+devicetrust_client_install_file: dtclient-release-19.4.100.0.exe
+devicetrust_client_product_id: {A80170F5-DCBC-4342-A80F-3CDA9FA3375E}
+
+devicetrust_download_url: https://portal.devicetrust.com/api/v1/download/latest/get?customerId=70c78cd5-d408-4650-a35a-e2056dac875b
+devicetrust_training_download_url: https://minio.prianto.com/devicetrust/2019-04-05_dT_Certified_Architect_Training.zip

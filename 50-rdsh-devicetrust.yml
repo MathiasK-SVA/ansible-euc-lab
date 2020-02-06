@@ -1,0 +1,36 @@
+---
+- hosts: windows-rdsh
+
+  vars_files:
+    - vars/generic.yml
+    - vars/devicetrust.yml
+
+  tasks:
+    - name: Create Temp Folder
+      win_file:
+        path: '{{ temp_working_dir }}'
+        state: directory
+
+    - name: Copy deviceTRUST Host
+      win_copy:
+        src: '{{ remote_install_share }}\devicetrust\{{ devicetrust_host_install_file }}'
+        dest: '{{ temp_working_dir }}\'
+        remote_src: yes
+      become: yes
+      become_method: runas
+      become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+      vars:
+        ansible_become_user: '{{ domain_admin_user }}'
+        ansible_become_pass: '{{ domain_admin_password }}'
+
+    - name: Install deviceTRUST Host
+      win_package:
+        path: '{{ temp_working_dir }}\{{ devicetrust_host_install_file }}'
+        product_id: '{{ devicetrust_host_product_id }}'
+        #creates_path: C:\Program Files\deviceTRUST\Host\Bin
+        state: present
+      register: deviceTRUST_Host_install
+
+    - name: reboot if deviceTRUST Host requires it
+      win_reboot:
+      when: deviceTRUST_Host_install.reboot_required

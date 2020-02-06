@@ -1,0 +1,48 @@
+---
+- hosts: windows-dc
+
+  vars_files:
+    - vars/generic.yml
+    - vars/fslogix.yml
+
+  tasks:
+    - name: installation source exists
+      win_stat:
+        path: '{{ resources_dir }}'
+      register: install_source_dir
+
+    - name: Create installation sources folder for FSLogix
+      win_file:
+        path: '{{ resources_dir }}\fslogix'
+        state: directory
+      when: install_source_dir.stat.exists
+      register: install_source_dir_fslogix
+
+    - name: download latest FSLogix install sources
+      win_get_url:
+        url: '{{ fslogix_download_url }}'
+        dest: '{{ temp_working_dir }}\fslogix.zip'
+
+    - name: Unzip FSLogix files
+      win_unzip:
+        src: '{{ temp_working_dir }}\fslogix.zip'
+        dest: '{{ resources_dir }}\fslogix\'
+        delete_archive: yes
+
+    - name: PolicyDefinitions en-US exists
+      win_stat:
+        path: '{{ policy_definitions_dir }}\en-US'
+      register: policy_definitions_en
+
+    - name: Copy ADMX to PolicyDefinitions
+      win_copy:
+        src: '{{ resources_dir }}\fslogix\fslogix.admx'
+        dest: '{{ policy_definitions_dir }}\'
+        remote_src: yes
+
+    - name: Copy ADML to PolicyDefinitions en
+      win_copy:
+        src: '{{ resources_dir }}\fslogix\fslogix.adml'
+        dest: '{{ policy_definitions_dir }}\en-US\'
+        remote_src: yes
+      when: policy_definitions_en.stat.exists

@@ -1,0 +1,24 @@
+---
+- hosts: windows-dc
+
+  vars_files:
+    - vars/generic.yml
+
+  tasks:
+    - name: Create temporary working directory
+      win_file:
+        path: '{{ temp_working_dir }}'
+        state: directory
+
+    - name: Create installation sources folder
+      win_file:
+        path: '{{ resources_dir }}'
+        state: directory
+
+    - name: Create installation sources share
+      win_share:
+        name: install
+        description: installation sources
+        path: '{{ resources_dir }}'
+        list: yes
+        full: Everyone

@@ -1,0 +1,53 @@
+---
+- hosts: windows-dc
+
+  vars_files:
+    - vars/generic.yml
+    - vars/citrix.yml
+
+  tasks:
+    - name: installation source exists
+      win_stat:
+        path: '{{ resources_dir }}'
+      register: install_source_dir
+
+    - name: Create installation sources folder for Citrix VAD
+      win_file:
+        path: '{{ resources_dir }}\citrix'
+        state: directory
+      when: install_source_dir.stat.exists
+      register: install_source_dir_citrix
+
+    - name: download latest Citrix VAD install sources
+      win_get_url:
+        url: '{{ citrix_vad_download_url }}'
+        dest: '{{ temp_working_dir }}\'
+      register: download_citrix_vad
+
+    - debug:
+        var: download_citrix_vad
+
+    - name: Mount Citrix VAD ISO
+      win_disk_image:
+        image_path: '{{ download_citrix_vad.dest }}'
+        state: present
+      register: disk_image_mount
+    
+    - debug:
+        var: disk_image_mount
+
+    - name: Copy ISO contents to sources folder
+      win_copy:
+        src: '{{ disk_image_mount.mount_path }}'
+        dest: '{{ resources_dir }}\citrix'
+        remote_src: yes
+
+    - name: Unmount Citrix VAD ISO
+      win_disk_image:
+        image_path: '{{ download_citrix_vad.dest }}'
+        state: absent
+
+    - name: Remove Citrix VAD ISO
+      win_file:
+        path: '{{ download_citrix_vad.dest }}'
+        state: absent

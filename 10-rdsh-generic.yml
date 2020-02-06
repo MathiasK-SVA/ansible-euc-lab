@@ -1,0 +1,19 @@
+---
+- hosts: windows-rdsh
+
+  vars_files:
+    - vars/generic.yml
+
+  roles:
+    - { role: ansible-role-win-rdsh }
+
+  tasks:
+    - name: Install packages with chocolatey
+      win_chocolatey:
+        name: '{{ item }}'
+        state: present
+      with_items:
+        - 7zip.install
+        - firefox
+        - notepadplusplus.install
+

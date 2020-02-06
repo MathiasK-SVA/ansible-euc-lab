@@ -1,0 +1,10 @@
+---
+fslogix_extract_dir: C:\Temp
+
+fslogix_apps_install_file:  FSLogixAppsSetup.exe
+fslogix_apps_product_id: {8bdd2a58-a463-45af-a70e-d7ee865b1752}
+
+fslogix_apps_ruleeditor_file: FSLogixAppsRuleEditorSetup.exe
+fslogix_apps_ruleeditor_product_id: {7ad48902-ba36-4462-bbbc-6f707932bc01}
+
+fslogix_download_url: https://aka.ms/fslogix_download
