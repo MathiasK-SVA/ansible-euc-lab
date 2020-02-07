@@ -1,14 +1,29 @@
+
 ---
 - hosts: windows-members
 
   vars_files:
     - vars/generic.yml
 
+  tasks:
+    - name: include generic roles
+      include_role:
+        name: "{{ item }}"
+      with_items:
+        - ansible-role-win-disable-firewall
+        - ansible-role-win-disable-windows-updates
+        - ansible-role-win-disable-nic-register-dns
+        - ansible-role-win-language
+        - ansible-role-win-hostname
 
-  roles:
-    # - { role: ansible-role-win-disable-firewall }
-    - { role: ansible-role-win-disable-windows-updates }
-    # - { role: ansible-role-win-disable-nic-register-dns }
-    - { role: ansible-role-win-language }
-    - { role: ansible-role-win-hostname }
-    - { role: ansible-role-win-domain-member }
+    - name: Get network adapter name
+      win_shell: |
+        $output = (Get-NetIPConfiguration |Where-Object {$_.IPv4Address.IPAddress.Length -gt 0 }|Select-Object -First 1).InterfaceAlias
+        Write-Host $output -NoNewLine
+      register: nic_name
+
+    - name: ansible-role-win-domain-member
+      include_role:
+        name:  ansible-role-win-domain-member
+      vars:
+        dns_client_adapter: '{{ nic_name.stdout }}'

@@ -23,6 +23,6 @@
 
     - name: Unzip deviceTRUST Training files
       win_unzip:
-        src: C:\Windows\Temp\2019-04-05_dT_Certified_Architect_Training.zip
+        src: '{{ temp_working_dir }}\dtca_training.zip'
         dest: '{{ resources_dir }}\devicetrust\dtca_training'
         delete_archive: yes
