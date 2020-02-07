@@ -4,10 +4,13 @@
   vars_files:
     - vars/generic.yml
 
-  roles:
-    - { role: ansible-role-win-rdsh }
-
   tasks:
+    - name: include generic roles
+      include_role:
+        name: "{{ item }}"
+      with_items:
+        - ansible-role-win-rdsh
+
     - name: Install packages with chocolatey
       win_chocolatey:
         name: '{{ item }}'

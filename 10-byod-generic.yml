@@ -4,14 +4,23 @@
   vars_files:
     - vars/generic.yml
 
-  roles:
-    - { role: ansible-role-win-disable-windows-updates }
-    - { role: ansible-role-win-language }
-    - { role: ansible-role-win-hostname }
-
   tasks:
+    - name: include generic roles
+      include_role:
+        name: "{{ item }}"
+      with_items:
+        - ansible-role-win-disable-windows-updates
+        - ansible-role-win-language
+        - ansible-role-win-hostname
+
+    - name: Get network adapter name
+      win_shell: |
+        $output = (Get-NetIPConfiguration |Where-Object {$_.IPv4Address.IPAddress.Length -gt 0 }|Select-Object -First 1).InterfaceAlias
+        Write-Host $output -NoNewLine
+      register: nic_name
+  
     - name: DNS Client
       win_dns_client:
-        adapter_names: "{{ dns_client_adapter }}"
+        adapter_names: '{{ nic_name.stdout }}'
         ipv4_addresses: "{{ dns_client_dns_server_ip }}"
       when: dns_client_configure

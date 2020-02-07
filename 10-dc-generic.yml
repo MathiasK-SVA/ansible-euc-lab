@@ -4,16 +4,19 @@
   vars_files:
     - vars/generic.yml
 
-  roles:
-    # - { role: ansible-role-win-disable-firewall }
-    - { role: ansible-role-win-disable-windows-updates }
-    # - { role: ansible-role-win-disable-nic-register-dns }
-    - { role: ansible-role-win-language }
-    - { role: ansible-role-win-hostname }
-    - { role: ansible-role-win-disable-password-complexity }
-    - { role: ansible-role-win-domain }
-
   tasks:
+
+    - name: include generic roles
+      include_role:
+        name: "{{ item }}"
+      with_items:
+        - ansible-role-win-disable-firewall
+        - ansible-role-win-disable-windows-updates
+        - ansible-role-win-language
+        - ansible-role-win-hostname
+        - ansible-role-win-disable-password-complexity
+        - ansible-role-win-domain
+
     - name: DC - DNS Service ListenAddresses
       win_regedit:
         path: HKLM:\SYSTEM\CurrentControlSet\Services\DNS\Parameters
