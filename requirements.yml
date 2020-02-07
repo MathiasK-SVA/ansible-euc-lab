@@ -9,6 +9,5 @@
 - src: https://github.com/andif888/ansible-role-win-domain-ou
 - src: https://github.com/andif888/ansible-role-win-hostname
 - src: https://github.com/andif888/ansible-role-win-language
-# - src: https://github.com/andif888/ansible-role-win-rdsh
 - src: https://github.com/MathiasK-SVA/ansible-role-win-rdsh
 - src: https://github.com/andif888/ansible-role-win-search-service
