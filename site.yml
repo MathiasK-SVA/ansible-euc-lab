@@ -5,7 +5,7 @@
 - import_playbook: 10-domainmembers-generic.yml
 - import_playbook: 10-rdsh-generic.yml
 - import_playbook: 10-domainclient-generic.yml
-- import_playbook: 10-rdsh-generic.yml
+- import_playbook: 10-byod-generic.yml
 
 # prepare install share on DC
 - import_playbook: 20-dc-resources.yml
