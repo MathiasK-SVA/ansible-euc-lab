@@ -1,14 +1,14 @@
 ---
-- hosts: windows-members
+- hosts: windows
 
   vars_files:
     - vars/generic.yml
-    - vars/ad-defaults.yml
 
   tasks:
     - name: include generic roles
       include_role:
         name: "{{ item }}"
       with_items:
-        - ansible-role-win-disable-firewall
-        - ansible-role-win-disable-nic-register-dns
+        - ansible-role-win-disable-windows-updates
+        - ansible-role-win-language
+        - ansible-role-win-hostname

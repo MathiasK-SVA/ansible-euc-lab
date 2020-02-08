@@ -11,9 +11,6 @@
         name: "{{ item }}"
       with_items:
         - ansible-role-win-disable-firewall
-        - ansible-role-win-disable-windows-updates
-        - ansible-role-win-language
-        - ansible-role-win-hostname
         - ansible-role-win-disable-password-complexity
         - ansible-role-win-domain
 

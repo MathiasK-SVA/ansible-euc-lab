@@ -1,16 +1,11 @@
 ---
-- hosts: windows-rdsh
+- hosts: windows-domain-client
 
   vars_files:
     - vars/generic.yml
     - vars/ad-defaults.yml
 
   tasks:
-    - name: include generic roles
-      include_role:
-        name: "{{ item }}"
-      with_items:
-        - ansible-role-win-rdsh
 
     - name: ansible-role-win-domain-member
       include_role:
@@ -20,7 +15,7 @@
         __hostname: "{{ hostname }}"
         __domain_join_user: "{{ domain_join_user }}"
         __domain_join_password: "{{ domain_join_password }}"
-        __domain_ou_path: "OU=RDSH,OU=Computers,OU=SVALAB,{{ active_directory_base_ou }}"
+        __domain_ou_path: "OU=Clients,OU=Computers,OU=SVALAB,{{ active_directory_base_ou }}"
         __dns_client_configure: true
         __dns_client_dns_server_ip: "{{ dns_client_dns_server_ip }}"
 

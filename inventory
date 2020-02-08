@@ -1,25 +1,28 @@
 [windows]
-192.168.8.10
-192.168.8.11
-192.168.8.12
-192.168.8.13
-192.168.8.14
-
-[windows-members]
+192.168.8.10 hostname=DC
 192.168.8.11 hostname=RDSH
 192.168.8.12 hostname=WVD
 192.168.8.13 hostname=CLIENT
+192.168.8.14 hostname=BYOD
+
+[windows-members]
+192.168.8.11
+192.168.8.12
+192.168.8.13
 
 [windows-dc]
 192.168.8.10 hostname=DC
 
 [windows-rdsh]
-192.168.8.11
-192.168.8.12
+192.168.8.11 hostname=RDSH
+192.168.8.12 hostname=WVD
 
 [windows-client]
 192.168.8.13
 192.168.8.14
 
-[windows-byod]
+[windows-domain-client]
+192.168.8.13 hostname=CLIENT
+
+[windows-byod-client]
 192.168.8.14 hostname=BYOD

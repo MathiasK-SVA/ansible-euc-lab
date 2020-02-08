@@ -5,14 +5,6 @@
     - vars/generic.yml
 
   tasks:
-    - name: include generic roles
-      include_role:
-        name: "{{ item }}"
-      with_items:
-        - ansible-role-win-disable-windows-updates
-        - ansible-role-win-language
-        - ansible-role-win-hostname
-
     - name: Get network adapter name
       win_shell: |
         $output = (Get-NetIPConfiguration |Where-Object {$_.IPv4Address.IPAddress.Length -gt 0 }|Select-Object -First 1).InterfaceAlias
