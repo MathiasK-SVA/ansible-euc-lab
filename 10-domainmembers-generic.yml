@@ -26,4 +26,11 @@
       include_role:
         name:  ansible-role-win-domain-member
       vars:
-        dns_client_adapter: '{{ nic_name.stdout }}'
+        __dns_domain_name: " {{ active_directory_dns_domain }}"
+        __hostname: "{{ hostname }}"
+        __domain_join_user: "{{ domain_join_user }}"
+        __domain_join_password: "{{ domain_join_password }}"
+        __domain_ou_path:
+        __dns_client_configure: true
+        __dns_client_dns_server_ip: "{{ dns_client_dns_server_ip }}"
+        __dns_client_adapter: '{{ nic_name.stdout }}'
