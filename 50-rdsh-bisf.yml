@@ -26,10 +26,9 @@
 
     - name: Install BIS-F
       win_package:
-        path: '{{ temp_working_dir }}\bis-f\setup-BIS-F-{{ bisf_version }}.exe'
+        path: '{{ temp_working_dir }}\setup-BIS-F-{{ bisf_version }}.exe'
         arguments:
-        - /INSTALL
-        - /QUIET
+        - /VERYSILENT
         - /NORESTART
         # fill product id
         product_id: '0000000000000000000000000000000'

@@ -62,6 +62,8 @@
     
     - name: Run icacls to set permissions on FSLogix folder
       win_shell: '{{ item }}'
+      args:
+        executable: cmd
       with_items:
         - 'icacls {{ fslogix_profile_folder }} /inheritance:r'
         - 'icacls {{ fslogix_profile_folder }} /grant Everyone:(NP)(AD,RD,RA,X)'
