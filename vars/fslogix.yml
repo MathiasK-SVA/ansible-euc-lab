@@ -8,3 +8,6 @@ fslogix_apps_ruleeditor_file: FSLogixAppsRuleEditorSetup.exe
 fslogix_apps_ruleeditor_product_id: {7ad48902-ba36-4462-bbbc-6f707932bc01}
 
 fslogix_download_url: https://aka.ms/fslogix_download
+
+fslogix_profile_folder: C:\fslogixprofiles
+fslogix_profile_share: fslogixprofiles

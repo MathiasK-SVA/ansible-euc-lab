@@ -46,3 +46,26 @@
         dest: '{{ policy_definitions_dir }}\en-US\'
         remote_src: yes
       when: policy_definitions_en.stat.exists
+    
+    - name: Create FSLogix Profile folder
+      win_file:
+        path: '{{ fslogix_profile_folder }}'
+        state: directory
+
+    - name: Create FSLogix Profile share
+      win_share:
+        name: '{{ fslogix_profile_share }}'
+        description: FSLogix Profile Share
+        path: '{{ fslogix_profile_folder }}'
+        list: yes
+        full: Everyone
+    
+    - name: Run icacls to set permissions on FSLogix folder
+      win_shell: '{{ item }}'
+      with_items:
+        - 'icacls {{ fslogix_profile_folder }} /inheritance:r'
+        - 'icacls {{ fslogix_profile_folder }} /grant Everyone:(NP)(AD,RD,RA,X)'
+        - 'icacls {{ fslogix_profile_folder }} /grant "Domain Admins":(OI)(CI)F'
+        - 'icacls {{ fslogix_profile_folder }} /grant System:(OI)(CI)F'
+        - 'icacls {{ fslogix_profile_folder }} /grant "CREATOR OWNER":(OI)(CI)F'
+        - 'icacls {{ fslogix_profile_folder }} /remove administrators'
