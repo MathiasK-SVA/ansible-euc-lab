@@ -1,5 +1,5 @@
 ---
-- hosts: windows-byod
+- hosts: windows-byod-client
 
   vars_files:
     - vars/generic.yml
