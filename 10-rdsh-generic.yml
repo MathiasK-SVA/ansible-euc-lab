@@ -6,12 +6,7 @@
     - vars/ad-defaults.yml
 
   tasks:
-    - name: include generic roles
-      include_role:
-        name: "{{ item }}"
-      with_items:
-        - ansible-role-win-rdsh
-
+  
     - name: ansible-role-win-domain-member
       include_role:
         name:  ansible-role-win-domain-member
@@ -24,12 +19,23 @@
         __dns_client_configure: true
         __dns_client_dns_server_ip: "{{ dns_client_dns_server_ip }}"
 
+    - name: include generic roles
+      include_role:
+        name: "{{ item }}"
+      with_items:
+        - ansible-role-win-rdsh
+
     - name: Install packages with chocolatey
       win_chocolatey:
         name: '{{ item }}'
         state: present
       with_items:
-        - 7zip.install
         - firefox
-        - notepadplusplus.install
-
+        - javaruntime
+        - pdfcreator
+        - filezilla
+        - thunderbird
+        - keepass.install
+        - opera
+        - winmerge
+        - greenshot

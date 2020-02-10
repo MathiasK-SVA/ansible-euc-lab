@@ -12,3 +12,15 @@
         - ansible-role-win-disable-windows-updates
         - ansible-role-win-language
         - ansible-role-win-hostname
+
+    - name: Install packages with chocolatey
+      win_chocolatey:
+        name: '{{ item }}'
+        state: present
+      with_items:
+        - 7zip.install
+        - googlechrome
+        - notepadplusplus.install
+        - putty.install
+        - sysinternals
+

@@ -13,6 +13,54 @@ active_directory_groups:
     description: 'Citrix Published Desktop VDI Windows 10 Pooled'
     path: 'OU=citrix'
 
+  fslogix-profiles-enabled:
+    description: 'FSLogix Profiles enabled'
+    path: 'OU=permissions'
+
+  fslogix-profiles-disabled:
+    description: 'FSLogix Profiles disabled'
+    path: 'OU=permissions'
+
+  app-notepadpp:
+    description: 'FSLogix App Masking permission for Notepad++'
+    path: 'OU=permissions'
+
+  app-firefox:
+    description: 'FSLogix App Masking permission for Firefox'
+    path: 'OU=permissions'
+
+  app-chrome:
+    description: 'FSLogix App Masking permission for Chrome'
+    path: 'OU=permissions'
+
+  app-pdfcreator:
+    description: 'FSLogix App Masking permission for PDFCreator'
+    path: 'OU=permissions'
+
+  app-filezilla:
+    description: 'FSLogix App Masking permission for FileZilla'
+    path: 'OU=permissions'
+
+  app-thunderbird:
+    description: 'FSLogix App Masking permission for Thunderbird'
+    path: 'OU=permissions'
+
+  app-keepass:
+    description: 'FSLogix App Masking permission for KeePass'
+    path: 'OU=permissions'
+
+  app-opera:
+    description: 'FSLogix App Masking permission for Opera'
+    path: 'OU=permissions'
+
+  app-winmerge:
+    description: 'FSLogix App Masking permission for Winmerge'
+    path: 'OU=permissions'
+
+  app-greenshot:
+    description: 'FSLogix App Masking permission for Greenshot'
+    path: 'OU=permissions'
+
 active_directory_default_groups:
   citrix-user:
     - ctx-pd-rdsh-ws19

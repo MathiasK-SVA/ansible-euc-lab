@@ -6,3 +6,46 @@ active_directory_users:
     path: 'OU=service'
     groups:
       - 'Account Operators'
+  
+  testuser_01:
+    first_name: 'Testuser'
+    last_name:  '01'
+    path: 'OU=Standard'
+    groups:
+      - 'Domain Users'
+      - 'app-chrome'
+      - 'app-greenshot'
+
+  testuser_02:
+    first_name: 'Testuser'
+    last_name:  '02'
+    path: 'OU=Standard'
+    groups:
+      - 'Domain Users'
+      - 'app-firefox'
+      - 'app-pdfcreator'
+
+  testuser_03:
+    first_name: 'Testuser'
+    last_name:  '03'
+    path: 'OU=Standard'
+    groups:
+      - 'Domain Users'
+      - 'app-opera'
+      - 'app-thunderbird'
+
+  testuser_04:
+    first_name: 'Testuser'
+    last_name:  '01'
+    path: 'OU=Standard'
+    groups:
+      - 'Domain Users'
+      - 'app-filezilla'
+      - 'app-winmerge'
+
+  testuser_05:
+    first_name: 'Testuser'
+    last_name:  '01'
+    path: 'OU=Standard'
+    groups:
+      - 'Domain Users'

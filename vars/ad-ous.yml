@@ -8,4 +8,6 @@ active_directory_domain_ou_list:
   - { name: 'RDSH', path: 'OU=Computers,OU=SVALAB,{{ active_directory_base_ou }}'}
   - { name: 'WVD', path: 'OU=Computers,OU=SVALAB,{{ active_directory_base_ou }}'}
   - { name: 'Citrix', path: 'OU=Groups,OU=SVALAB,{{ active_directory_base_ou }}'}
+  - { name: 'Permissions', path: 'OU=Groups,OU=SVALAB,{{ active_directory_base_ou }}'}
   - { name: 'Service', path: 'OU=Users,OU=SVALAB,{{ active_directory_base_ou }}'}
+  - { name: 'Standard', path: 'OU=Users,OU=SVALAB,{{ active_directory_base_ou }}'}

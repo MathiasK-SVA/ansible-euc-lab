@@ -24,7 +24,12 @@
         name: '{{ item }}'
         state: present
       with_items:
-        - 7zip.install
         - firefox
-        - notepadplusplus.install
-
+        - javaruntime
+        - pdfcreator
+        - filezilla
+        - thunderbird
+        - keepass.install
+        - opera
+        - winmerge
+        - greenshot
