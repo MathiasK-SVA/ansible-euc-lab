@@ -4,14 +4,14 @@ win_user_language: de-DE
 dns_domain_name: svalab.local
 domain_netbios_name: SVALAB
 domain_admin_user: labadmin@svalab.local
-domain_admin_password: P@ssw0rd
+domain_admin_password: "Passw0rd!"
 dns_client_configure: True
 dns_client_adapter: Ethernet
 dns_client_dns_server_ip: 192.168.8.10
 policy_definitions_dir: C:\Windows\SYSVOL\domain\Policies\PolicyDefinitions
 
 domain_join_user: "svc_domainjoin@{{ dns_domain_name }}"
-domain_join_password: "P@ssw0rd"
+domain_join_password: "Passw0rd!"
 
 install_rds_licensing: true
 rds_licensing_mode: 4

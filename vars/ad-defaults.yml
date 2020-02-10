@@ -9,7 +9,7 @@ active_directory_base_ou: 'DC=svalab,DC=local'
 ### users
 active_directory_users: {}
 active_directory_user_base_ou: 'OU=Users,OU=SVALAB,{{ active_directory_base_ou }}'
-active_directory_user_default_password: P@ssw0rd
+active_directory_user_default_password: Passw0rd!
 active_directory_user_update_password: 'on_create'
 active_directory_user_group_action: 'add'
 active_directory_user_password_never_expires_enabled: true

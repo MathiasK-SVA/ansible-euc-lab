@@ -13,4 +13,4 @@ devicetrust_client_install_file: dtclient-release-19.4.100.0.exe
 devicetrust_client_product_id: {A80170F5-DCBC-4342-A80F-3CDA9FA3375E}
 
 devicetrust_download_url: https://portal.devicetrust.com/api/v1/download/latest/get?customerId=70c78cd5-d408-4650-a35a-e2056dac875b
-devicetrust_training_download_url: https://minio.prianto.com/devicetrust/2019-04-05_dT_Certified_Architect_Training.zip
+devicetrust_training_download_url: https://svatraining.blob.core.windows.net/resources/2020-02-13_dT_Technical_Training_SVA.zip
