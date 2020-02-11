@@ -24,4 +24,4 @@ temp_working_dir: c:\temp
 
 resources_dir: c:\_install
 
-remote_install_share: \\dc\install
+remote_install_share: '\\dc.{{ dns_domain_name }}\install'
