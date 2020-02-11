@@ -66,7 +66,7 @@
         executable: cmd
       with_items:
         - 'icacls {{ fslogix_profile_folder }} /inheritance:r'
-        - 'icacls {{ fslogix_profile_folder }} /grant Everyone:(NP)(AD,RD,RA,X)'
+        - 'icacls {{ fslogix_profile_folder }} /grant Everyone:(RX,AD)'
         - 'icacls {{ fslogix_profile_folder }} /grant "Domain Admins":(OI)(CI)F'
         - 'icacls {{ fslogix_profile_folder }} /grant System:(OI)(CI)F'
         - 'icacls {{ fslogix_profile_folder }} /grant "CREATOR OWNER":(OI)(CI)F'
