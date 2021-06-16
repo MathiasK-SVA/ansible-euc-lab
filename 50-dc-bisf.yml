@@ -21,7 +21,7 @@
     - name: download latest BIS-F install sources
       win_get_url:
         url: '{{ bisf_download_url }}'
-        dest: '{{ resources_dir }}\bis-f\setup-BIS-F-{{ bisf_version }}.exe'
+        dest: '{{ resources_dir }}\bis-f\bis-f-current.msi'
 
     - name: Fetch ADMX from GitHub to PolicyDefinitions
       win_get_url:
