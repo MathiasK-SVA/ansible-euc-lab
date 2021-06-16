@@ -24,9 +24,9 @@
 # - import_playbook: 51-dc-devicetrust-training.yml
 
 # install apps on session hosts
-- import_playbook: 50-rdsh-bisf.yml
+# - import_playbook: 50-rdsh-bisf.yml
 # - import_playbook: 50-rdsh-devicetrust.yml
-- import_playbook: 50-rdsh-fslogix.yml
+# - import_playbook: 50-rdsh-fslogix.yml
 
 # install apps on clients
 # - import_playbook: 50-client-devicetrust.yml
