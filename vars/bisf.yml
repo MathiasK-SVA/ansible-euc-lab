@@ -5,5 +5,5 @@ bisf_adml_en_url: https://raw.githubusercontent.com/EUCweb/BIS-F/develop/ADMX/en
 
 bisf_tool_ctxo_download_url: https://svatraining.blob.core.windows.net/resources/CitrixOptimizer.zip
 bisf_tool_vosot_download_url: https://download3.vmware.com/software/vmw-tools/osoptimization/VMwareOSOptimizationTool_b2003_17885353.zip
-bisf_tool_delprof2_download_url: https://helgeklein.com/downloads/DelProf2/current/Delprof2%201.6.0.zip
+bisf_tool_delprof2_download_url: https://svatraining.blob.core.windows.net/resources/Delprof2%201.6.0.zip
 bisf_tool_sdelete_download_url: https://download.sysinternals.com/files/SDelete.zip
